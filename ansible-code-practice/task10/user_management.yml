@@ -1,0 +1,16 @@
+---
+- name: create user management tasks
+  hosts: all
+  become: true
+  tasks:
+    - name: update password of an user
+      user: 
+          name: ansible-user
+          state: present
+          update_password: always
+          password: "{{ 'newpassword' | password_hash('sha512') }}"
+
+
+# update the password of an existing user using below command
+# ansible-playbook user_management.yml -i inventory --ask-become-pass or
+# ansible-playbook user_management.yml -i inventory --extra-vars newpassword"=your_password"

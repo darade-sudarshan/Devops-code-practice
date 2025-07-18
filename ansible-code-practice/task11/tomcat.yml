@@ -1,0 +1,44 @@
+---
+- name: create a Dir anddownload a tomcat from URL
+  hosts: all
+  become: true
+  tasks:
+    - name: Update package cache (for Debian/Ubuntu)
+      apt:
+        update_cache: yes
+
+    - name: create a directory
+      file:
+        path: /opt/tomcat
+        state: directory
+        mode: '0755'
+        owner: ubuntu
+        group: ubuntu
+    
+    - name: Reinstall Python3 and related SSL packages
+      apt:
+        name:
+          - python3
+          - python3-urllib3
+          - ca-certificates
+        state: latest
+        force: yes  # Forces reinstall if already present
+
+    - name: download tomcat tar file
+      get_url:
+        url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.107/bin/apache-tomcat-9.0.107.tar.gz
+        dest: /opt/tomcat/apache-tomcat-9.0.62.tar.gz
+        mode: '0644'
+        owner: ubuntu
+        group: ubuntu
+        
+
+    - name: extract tomcat tar file
+      unarchive:
+        src: /opt/tomcat/apache-tomcat-9.0.62.tar.gz
+        dest: /opt/tomcat
+        remote_src: yes
+        mode: '0755'
+        owner: ubuntu
+        group: ubuntu 
+  

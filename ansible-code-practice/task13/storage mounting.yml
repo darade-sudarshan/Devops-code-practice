@@ -1,0 +1,37 @@
+---
+- name: Create and mount a storage directory
+  hosts: all
+  become: true
+  tasks:
+    - name: Create a new partition
+      parted:
+        device: /dev/sdb
+        label: gpt
+        number: 1
+        state: present
+        part_type: primary
+        part_start: 1MiB
+        part_end: 100% # Adjust as needed or mention size in MiB
+    
+    - name: Format the partition with ext4 filesystem
+      filesystem:
+        fstype: ext4
+        dev: /dev/sdb1
+    - name: Create a mount point
+      file:
+        path: /mnt/data
+        state: directory
+        mode: '0755'
+    - name: Mount the partition
+      mount:
+        src: /dev/sdb1
+        fstype: ext4
+        state: mounted
+        path: /mnt/data
+        opts: defaults
+
+    - name: Ensure the mount is persistent across reboots
+      mount:
+        permenent: yes
+        src: /dev/sdb1
+        fstype: ext4

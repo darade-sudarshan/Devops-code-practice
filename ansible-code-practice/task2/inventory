@@ -1,0 +1,4 @@
+
+ansible-controller   ansible_host=18.117.168.77    ansible_user=ubuntu    ansible_ssh_private_key_file=~/secrets/ansible-us-east-2.pem
+ansible-target1   ansible_host=3.146.221.21   ansible_user=ubuntu     ansible_ssh_private_key_file=~/secrets/ansible-us-east-2.pem
+ansible-target2   ansible_host=3.133.136.232   ansible_user=ubuntu    ansible_ssh_private_key_file=~/secrets/ansible-us-east-2.pem

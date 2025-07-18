@@ -1,0 +1,9 @@
+---
+- name: Installing and running apache
+  hosts: all
+  become: true
+  tasks:
+    - name: change file permission
+      file: 
+        path: /tmp/sample.txt
+        mode: 'u+rw'  # we can use '0700'

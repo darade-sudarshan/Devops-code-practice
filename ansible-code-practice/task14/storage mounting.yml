@@ -1,0 +1,6 @@
+---
+- name: Create and mount a storage directory
+  hosts: all
+  become: true
+  tasks:
+    -

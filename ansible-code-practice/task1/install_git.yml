@@ -1,0 +1,21 @@
+---
+- name: Install Git on target machine
+  hosts: all
+  become: true
+  tasks:
+    - name: Update package cache (for Debian/Ubuntu)
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install Git (for Debian/Ubuntu)
+      apt:
+        name: git
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Install Git (for RedHat/CentOS/Fedora)
+      yum:
+        name: git
+        state: present
+      when: ansible_os_family == "RedHat"

@@ -1,0 +1,13 @@
+---
+- name: create user management tasks
+  hosts: all
+  become: true
+  tasks:
+    - name: create an user
+      user: 
+          name: ansible-user
+          home: /home/ansible-user
+          shell: /bin/bash
+          state: present
+          groups: sudo
+          password: "{{ 'ansible@123' | password_hash('sha512') }}"

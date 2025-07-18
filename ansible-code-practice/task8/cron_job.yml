@@ -1,0 +1,15 @@
+---
+- name: schedule cron job
+  hosts: all
+  become: true
+  tasks:
+    - name: schedule cron job
+      cron: 
+        name: "run sample script every minute"
+        minute: "*"
+        hour: "*"
+        day: "*"
+        month: "*"
+        weekday: "*"
+        job: "sh /tmp/sample.sh"
+        user: ubuntu
